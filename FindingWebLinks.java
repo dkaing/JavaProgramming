@@ -1,9 +1,14 @@
 
 /**
- * Write a description of url here.
+ * This program reads the lines from HTML data, identify urls, and quantify 
+ * certain marks in the urls.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * by Davin Kaing 
+ * 
+ * March 18, 2016
+ * 
+ * This assignment is part of Coursera's course, Java Programming: Solving Problems with 
+ * Software, offered by Duke University.
  */
 import java.net.*;
 import java.io.*;
@@ -36,7 +41,7 @@ public class url {
             int firstQuote = index +6;
             int endQuote = source.indexOf("\"", firstQuote);
             String sub = source.substring(firstQuote, endQuote);
-            //System.out.println(sub);
+            
             if(sub.startsWith("http")){
                 
                 http = http +1;
@@ -56,7 +61,6 @@ public class url {
                 if (loc >=0){
                     dots+=1;
                 }
-            
             }
             if (sub.endsWith(".com/" )||sub.endsWith(".com")){
                 comdashandcom +=1;
@@ -82,7 +86,6 @@ public class url {
         System.out.println("dots = " + dots);
     }
  
-    
     public void testURL() {
         findURLs("http://www.dukelearntoprogram.com/course2/data/newyorktimes.html");
     }
