@@ -1,13 +1,21 @@
 
 /**
- * Write a description of findgene here.
+ * This program uses the following algorithms to analyze large genomic data such as 
+ * finding genes, quantify CTG codons, examine the cg ratio of the genes, and identify 
+ * the longest gene.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * by Davin Kaing
+ * 
+ * March 18, 2016
+ * 
+ * This assignment is part of Coursera's course, Java Programming: Solving Problems with 
+ * Software, offered by Duke University.
  */
 import edu.duke.*;
 import java.io.*;
 public class findgene {
+    
+    // Find the index of the stop codon of a gene. The following can be stop codons: TGA, TAA, or TAG.
     
     public int findStopIndex(String dna, int index){
         int stop1 = dna.indexOf("tga", index);
@@ -25,6 +33,8 @@ public class findgene {
         return Math.min(stop1, Math.min(stop2, stop3));
     }
    
+    // An algorithm for counting the amount of Cytosines (represented by C in DNA strand).
+    
     public int c(String dna) {
         int clocation = 0;
         int c = 0;
@@ -37,26 +47,12 @@ public class findgene {
                 c = c+1;
             }
             clocation = cloc +1;
-           
         }
         return c;
     }
-    public int ctg(String dna) {
-        int ctglocation = 0;
-        int ctg = 0;
-        while(true){
-            int ctgloc = dna.indexOf("ctg", ctglocation);
-            if(ctgloc == -1){
-                break;
-            }
-            if(ctgloc>=0){
-                ctg = ctg+1;
-            }
-            ctglocation = ctgloc +3;
-           
-        }
-        return ctg;
-    }
+    
+    // An algorithm for counting the number of Guanines (represented by G in DNA strand).
+    
     public int g(String dna) {
         int glocation = 0;
         int g = 0;
@@ -74,6 +70,8 @@ public class findgene {
         return g;
     }
     
+    // A method for finding genes and storing it.
+    
     public StorageResource storegenes(String dna){
         dna = dna.toLowerCase();
         StorageResource store = new StorageResource();
@@ -88,11 +86,9 @@ public class findgene {
             if (loc == -1){
                 break;
             }
-
             int end = findStopIndex(dna, loc+3);
             if (end!= dna.length()){
                 String DNA = dna.substring(loc, end+3);
-
                 gene = gene +1;
                 if(DNA.length()>60){
                     length +=1;
@@ -105,115 +101,19 @@ public class findgene {
                 }
                 store.add(DNA);
                 start = end +3;
-                //startctg = ctgloc+3;
             }
             else {
                 start = loc +3;
             }
-            
         }
         System.out.println("Number of Genes = " +gene);
         System.out.println("cgratio = " +cg);
         System.out.println("Length over 60 = " +length);
-        
         return store;
     }
     
+    // Find the longest gene.
     
-    
-    
-    public void findgenes(String dna){
-        dna = dna.toLowerCase();
-        int start = 0;
-        int stop = 0;
-        int gene = 0;
-        int clocation = 0;
-        int glocation = 0;
-        int c = 0;
-        int g = 0;
-        int cggene = 0;
-        
-        while(true){
-            int loc = dna.indexOf("atg", start);
-            int stoploc = findStopIndex(dna, start);
-            
-            if (loc == -1) {
-                break;
-            }
-            if (stoploc == -1){
-                break;
-            }
-            if ((stoploc - loc)%3 ==0){
-                gene = gene+1;
-                
-                //String genestring = dna.substring(loc, stoploc+3);
-                //System.out.println(genestring);
-                //float cingene = c(genestring);
-                //System.out.println(cingene);
-                //float gingene = g(genestring);
-                //System.out.println(gingene);
-                //float cgratio = cingene/gingene;
-                //System.out.println(cgratio);
-                
-                
-            }
-
-           //System.out.println("starts at "+loc);
-           //System.out.println("stops at " + stoploc);
-           //clocation = cloc +1;
-           //System.out.println("c at = " + cloc);
-           start = loc + 3;
-           stop = stoploc +3;
-        }
-        System.out.println("genes = "+ gene);
-        //System.out.println("cgenes = " + cggene);
-        
-        //System.out.println("c = " +c);
-    }
-    
-    public void findAllGenes(String dna){
-        dna = dna.toLowerCase();
-        int start = 0;
-        int stop = 0;
-        int gene = 0;
-        int clocation = 0;
-        int c = 0;
-        while(true){
-            int loc = dna.indexOf("atg", start);
-            if (loc == -1) {
-                break;
-            }
-            int cloc = dna.indexOf("c", clocation);
-            if (cloc == -1){
-                break;
-            }
-            if(cloc>=0){
-                c = c+1;
-            }
-            
-            int stoploc = findStopIndex(dna, stop);
-
-            if ((stoploc - loc)%3 ==0){
-                gene = gene + 1;
-            }
-
-           //System.out.println("starts at "+loc);
-           //System.out.println("stops at " + stoploc);
-           clocation = cloc +1;
-           System.out.println("c at = " + cloc);
-           start = loc + 3;
-           stop = stoploc +3;
-        }
-        System.out.println("genes = "+ gene);
-        
-    }
-    
-    public void testdna() {
-        findgenes("atgctgcccctggggtaaatgcccgggtagatgxxxyyytgaatgxxxyyytaaatgxxtaa");
-
-        
-        
-    }
     public int printMax(StorageResource store){
         int max = 0;
         for(String gene: store.data()){
@@ -227,6 +127,9 @@ public class findgene {
         }
         return max;
     }
+    
+    // Find CTG codons in the DNA strand.
+    
     public int findCTG(StorageResource store){
         int index = 0; 
         int ctg = 0;
@@ -239,6 +142,15 @@ public class findgene {
         }
         return ctg;
     }
+    
+    // Test algorithm with small dataset.
+    
+    public void testdna() {
+        findgenes("atgctgcccctggggtaaatgcccgggtagatgxxxyyytgaatgxxxyyytaaatgxxtaa");
+    }
+    
+    // Test algorithm on large genomic datasets.
+    
     public void realTesting() {
         DirectoryResource dr = new DirectoryResource();
         
@@ -249,10 +161,6 @@ public class findgene {
             storegenes(s);
             System.out.println("Max = "+printMax(storegenes(s)));
             System.out.println("CTG = " +findCTG(storegenes(s)));
-            
-            
         }
     }
-            
-
 }
