@@ -1,15 +1,21 @@
 
 /**
- * Write a description of csvdata here.
+ * This program analyzes export data from different countries. The data contains 
+ * the following variables: Country, Exports, and Value (dollars). 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * by Davin Kaing
+ * 
+ * This assignment is part of Coursera's course, Java Programming: Solving Problems with 
+ * Software, offered by Duke University.
  */
 
 import edu.duke.*;
 import org.apache.commons.csv.*;
 
 public class csvdataCountryExport {
+    
+    // Get specific row of data when provided the country name.
+    
     public void countryinfo(CSVParser parser, String country){
         for (CSVRecord record: parser){
             if(record.get("Country").contains(country)) {
@@ -20,6 +26,8 @@ public class csvdataCountryExport {
     }
     }
     
+    // Find the list of exporters when given two exported items.
+    
     public void listExportersTwoProducts(CSVParser parser, String exportitem1, String exportitem2){
         for (CSVRecord record: parser){
         String export = record.get("Exports");
@@ -28,6 +36,8 @@ public class csvdataCountryExport {
         }
     }
     }
+    
+    // Find the number of exporters when given an exported item.
     
     public void numberOfExporters(CSVParser parser, String exportitem) {
         int country = 0;
@@ -41,6 +51,8 @@ public class csvdataCountryExport {
         
     }
     
+    // Find exporters with value greater than a certain amount.
+    
     public void bigExporters(CSVParser parser, String amount){
         for (CSVRecord record: parser){
             String value = record.get("Value (dollars)");
@@ -50,13 +62,13 @@ public class csvdataCountryExport {
             }
         }
     }
+    
+    // Test the above methods on real data.
+    
     public void tester(){
         FileResource fr = new FileResource();
         CSVParser parser = fr. getCSVParser();
-        //listExportersTwoProducts(parser, "cotton", "flowers");
         bigExporters(parser, "$999,999,999,999");
-        //numberOfExporters(parser, "cocoa");
-        
         
     }
 }
