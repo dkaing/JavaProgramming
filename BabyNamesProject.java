@@ -1,9 +1,13 @@
 
 /**
- * Write a description of BabyNamesProject here.
+ * As part of the Java Programming: Solving Problems with Software offered on Coursera by Duke University, 
+ * this objective of this project is to develop an algorithm to analyze baby names data from the United States. 
+ * The data is collected from 1880 to 2014 for both boys and girls and the following information are provided: 
+ * name, gender, and births. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Prepared by Davin Kaing
+ * 
+ * March 18, 2016
  */
 
 import edu.duke.*;
@@ -12,6 +16,9 @@ import java.io.*;
 import java.io.File;
 
 public class BabyNamesProject {
+    
+    // A method for finding unique names in the file.
+    
     public void totalUniqueNames(FileResource fr){
         int totalnames = 0;
         int boynames = 0;
@@ -45,6 +52,11 @@ public class BabyNamesProject {
         System.out.println("Total Unique Boy Names = "+boynames);
     }
     
+    // A method that ranks the popularity of the name (measured by births) and outputs
+    // the ranking for the following inputs: year, name, and gender.
+    
+    
+    
     public int getRank(String year, String name, String gender) {
         int next = 0;
         int rank = 0;
@@ -58,13 +70,9 @@ public class BabyNamesProject {
             
             if(rec.get(1).equals(gender)){
                 int current = Integer.parseInt(rec.get(2));
-                
-                
                 if(next == 0){
                     next = current;
                     rank = 1;
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" " +rec.get(0) + " Births = " + rec.get(2) );
                 }
                 
                 else{
@@ -91,6 +99,7 @@ public class BabyNamesProject {
         return value;
     }
     
+    // When giving year, rank, and gender of the invidual, the name is outputted. 
 
     public String getName(String year, int Rank, String gender) {
         int next = 0;
@@ -107,8 +116,6 @@ public class BabyNamesProject {
                 if(next == 0){
                     next = current;
                     rank = 1;
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" " +rec.get(0) + " Births = " + rec.get(2) );
                 }
                 
                 else{
@@ -118,8 +125,6 @@ public class BabyNamesProject {
                 if(rank == Rank && rec.get(1).equals(gender)){
                     there +=1;
                     Name = rec.get(0);
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" Name = " +rec.get(0) + " Gender = "+ rec.get(1)+ " Births = " + rec.get(2) );
                 }
             }
         }
@@ -129,17 +134,16 @@ public class BabyNamesProject {
         return Name;
     }
     
+    // What would the name be if the individual was born in a different year? This is 
+    // determined by the ranking. 
     
     public void whatIsNameInYear(String name, String year, String newYear, String gender){
-        
         int rank = getRank(year, name, gender);
         String newname = getName(newYear, rank, gender);
         System.out.println(name + " born in " +year+ " would be " + newname + " if she was born in " + newYear);
-        
-            
-        
     }
     
+    // Find the year with the highest ranking for that individual.
     
     public void yearOfHighestRank(String name, String gender){
         
@@ -157,15 +161,15 @@ public class BabyNamesProject {
                 if(rank<highrank){
                     highrank = rank;
                     yearOfHighestRank = year;
-                    
                 }
             }
             year +=1;
             
         }
-        
         System.out.println("The highest ranked year for " + name + " is " + yearOfHighestRank);
     }
+    
+    // Find the average ranking of that invidual for all of the data from 1880 to 2014. 
     
     public void getAverageRank(String name, String gender){
         
@@ -188,6 +192,8 @@ public class BabyNamesProject {
         System.out.println("The average rank for " + name+ " is " + ave);
     }
     
+    // Get the births when provided year, ranking, and gender.
+    
     public int getBirths(String year, int Rank, String gender) {
         int next = 0;
         int rank = 0;
@@ -202,12 +208,9 @@ public class BabyNamesProject {
             if(rec.get(1).equals(gender)){
                 int current = Integer.parseInt(rec.get(2));
                 
-                
                 if(next == 0){
                     next = current;
                     rank = 1;
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" " +rec.get(0) + " Births = " + rec.get(2) );
                 }
                 
                 else{
@@ -218,16 +221,10 @@ public class BabyNamesProject {
                 if(rank == Rank && rec.get(1).equals(gender)){
                     notthere =1;
                     value = Integer.parseInt(rec.get(2));
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" Name = " +rec.get(0) + " Gender = "+ rec.get(1)+ " Births = " + rec.get(2) );
                 }
                 else{
                     notthere = 0;
                 }
-                
-                //System.out.print("Rank = " +rank);
-                //System.out.println(" " +rec.get(0) + " Births = " + rec.get(2) );
-                
             }
             
         }
@@ -237,6 +234,7 @@ public class BabyNamesProject {
         return value;
     }
     
+    // Get the total births that are ranked higher than the individual.
     
     public void getTotalBirthsRankedHigher(String year, String name, String gender){
         int rank = getRank(year, name, gender);
@@ -250,9 +248,9 @@ public class BabyNamesProject {
         
     }
     
+    // Test the methods above. 
+    
     public void testnames(){
-        //FileResource fr = new FileResource();
-        //totalUniqueNames(fr);
         int B = getRank("1971", "Frank", "M");
         System.out.println("Question 4 = " + B);
         String C = getName("1980", 350, "F");
@@ -268,7 +266,5 @@ public class BabyNamesProject {
         getTotalBirthsRankedHigher("1990", "Emily", "F");
         getTotalBirthsRankedHigher("1990", "Drew", "M");
 
-        
     }
-
 }
