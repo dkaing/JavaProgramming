@@ -1,7 +1,7 @@
 
 /**
  * As part of the Java Programming: Solving Problems with Software offered on Coursera by Duke University, 
- * the objective of this project is to develop an algorithm to analyze baby names data from the United States. 
+ * the objective of this project is to write a program to analyze baby names data from the United States. 
  * The data is collected from 1880 to 2014 for both boys and girls and the following information are provided: 
  * name, gender, and births. 
  * 
