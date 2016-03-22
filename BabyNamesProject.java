@@ -83,8 +83,6 @@ public class BabyNamesProject {
                 if(rec.get(0).equals(name)&& rec.get(1).equals(gender)){
                     notthere =1;
                     value = rank;
-                    //System.out.print("Rank = " +rank);
-                    //System.out.println(" Name = " +rec.get(0) + " Gender = "+ rec.get(1)+ " Births = " + rec.get(2) );
                 }
                 else{
                     notthere = 0;
