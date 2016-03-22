@@ -99,7 +99,7 @@ public class BabyNamesProject {
         return value;
     }
     
-    // When giving year, rank, and gender of the invidual, the name is outputted. 
+    // When given year, rank, and gender of the invidual, the name is outputted. 
 
     public String getName(String year, int Rank, String gender) {
         int next = 0;
@@ -234,7 +234,7 @@ public class BabyNamesProject {
         return value;
     }
     
-    // Get the total births that are ranked higher than the individual.
+    // Get the total births that are ranked higher than the given individual.
     
     public void getTotalBirthsRankedHigher(String year, String name, String gender){
         int rank = getRank(year, name, gender);
